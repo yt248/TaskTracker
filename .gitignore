@@ -19,6 +19,13 @@ target/
 *.iml
 *.ipr
 
+mvnw
+mvnw.cmd
+maven-wrapper.jar
+.mvn
+maven-wrapper.properties
+
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -31,3 +38,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+
+
