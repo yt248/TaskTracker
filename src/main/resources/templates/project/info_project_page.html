@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Info Project Page</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+<div align="center">
+
+    <h3> Project name</h3>
+    <br>
+    <h2><span th:text="${projectInfo.name}"/></h2>
+
+    <br>
+    <div class="card">
+        <h3>Description project:</h3>
+        <br>
+        <textarea readonly="readonly" th:text="${projectInfo.description}"></textarea>
+    </div>
+
+
+    <div align="center">
+        <h3>Developers Project</h3>
+        <table style="width:15%">
+            <tr>
+                <td align="center"><b>Full Name</b></td>
+            </tr>
+            <tr th:each="user : ${projectInfo.getUsers()}">
+                <td align="center" th:text="${user.fullName}"></td>
+            </tr>
+        </table>
+    </div>
+
+
+</div>
+</body>
+</html>

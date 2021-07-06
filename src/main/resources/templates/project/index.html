@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Index Project</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 30%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+
+</head>
+<body>
+
+
+
+
+<div align="center">
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <p>
+                Welcome <b><span th:text="${principalName}"/></b>
+            </p>
+            <input type="submit" value="Logout" />
+        </form>
+    </div>
+<div sec:authorize="hasAnyAuthority('MANAGER')">
+
+    <h2 align="center">List Projects </h2>
+    <table align="center">
+        <tr>
+            <td><b>Project Name </b></td>
+            <td><b>Description </b></td>
+            <td><b>Detail </b></td>
+        </tr>
+        <tr th:each="project : ${projectList}" >
+            <td th:text="${project.getName()}"/>
+            <td th:text="${project.getDescription()}"/>
+            <td> <a th:href="@{/project/info/{id}(id=${project.getId()})}">Detail</a></td>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+    <form th:action="@{/project/create}" method="get">
+        <button type="submit">Create new Project</button>
+    </form>
+
+</div>
+
+
+
+</div>
+
+</body>
+</html>
