@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Task Status</title>
+</head>
+<body>
+
+<div align="center" sec:authorize="hasAnyAuthority('MANAGER','DEVELOPER')">
+    <h2>Create New Task</h2>
+    <br>
+    <br>
+    <form th:action="@{/task/update/{taskId}(taskId=${task.getId()})}" method="post" th:object="${task}">
+        <label>Task name</label>
+
+        <p><input type="text" th:field="*{name}" readonly/></p>
+        <br>
+        <label>Task description</label>
+        <p><input type="text" th:field="*{description}" readonly/></p>
+        <br>
+        <label>Status:</label>
+
+        <select name="country" th:field="*{taskStatus}">
+            <option value=""> -- </option>
+            <option th:each="taskStatus : ${T(com.eugene.spring.boot.pet.project.TaskTracker.entity.TaskStatus).values()}"
+                    th:value="${taskStatus}" th:text="${taskStatus.displayText}"></option>
+        </select>
+        <br/>
+
+        <button type="submit">Update</button>
+    </form>
+
+</div>
+</body>
+</html>
