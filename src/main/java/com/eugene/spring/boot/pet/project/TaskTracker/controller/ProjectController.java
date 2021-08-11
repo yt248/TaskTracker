@@ -5,9 +5,8 @@ import com.eugene.spring.boot.pet.project.TaskTracker.entity.User;
 import com.eugene.spring.boot.pet.project.TaskTracker.repository.ProjectRepo;
 import com.eugene.spring.boot.pet.project.TaskTracker.repository.UserRepo;
 import com.eugene.spring.boot.pet.project.TaskTracker.service.CustomUserDetails;
-import com.eugene.spring.boot.pet.project.TaskTracker.service.ProjectService;
+import com.eugene.spring.boot.pet.project.TaskTracker.service.impl.ProjectServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +25,7 @@ import java.util.List;
 public class ProjectController {
 
     @Autowired
-    private ProjectService projectService;
+    private ProjectServiceImpl projectServiceImpl;
 
     @Autowired
     private UserRepo userRepo;
@@ -43,9 +42,13 @@ public class ProjectController {
         model.addAttribute("principalName", principalCustom.getFullName());
 
 
-
         List<Project> listOnlyOneUser = projectRepo.findProjectByCreator(principal.getName());
         model.addAttribute("projectList", listOnlyOneUser);
+
+//        List<Project> listOnlyJobProject = projectRepo.findProjectByJobProject(principal.getName());
+//        model.addAttribute("projectListJob", listOnlyJobProject);
+
+
 
         return "project/index";
     }
@@ -70,5 +73,7 @@ public class ProjectController {
         projectRepo.save(project);
         return "redirect:/project/";
     }
+
+
 
 }

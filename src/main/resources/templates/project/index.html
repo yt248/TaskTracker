@@ -33,7 +33,6 @@
         </form>
     </div>
 <div sec:authorize="hasAnyAuthority('MANAGER')">
-
     <h2 align="center">List Projects </h2>
     <table align="center">
         <tr>
@@ -53,8 +52,29 @@
     <form th:action="@{/project/create}" method="get">
         <button type="submit">Create new Project</button>
     </form>
-
 </div>
+
+<!--<div sec:authorize="hasAnyAuthority('DEVELOPER')">-->
+<!--    <h2 align="center">List Projects </h2>-->
+<!--    <table align="center">-->
+<!--        <tr>-->
+<!--            <td><b>Project Name </b></td>-->
+<!--            <td><b>Description </b></td>-->
+<!--            <td><b>Detail </b></td>-->
+<!--        </tr>-->
+<!--        <tr th:each="project : ${projectListJob}" >-->
+<!--            <td th:text="${project.getName()}"/>-->
+<!--            <td th:text="${project.getDescription()}"/>-->
+<!--            <td> <a th:href="@{/project/info/{id}(id=${project.getId()})}">Detail</a></td>-->
+<!--        </tr>-->
+<!--    </table>-->
+
+<!--    <br>-->
+<!--    <br>-->
+<!--    <form th:action="@{/project/create}" method="get">-->
+<!--        <button type="submit">Create new Project</button>-->
+<!--    </form>-->
+<!--</div>-->
 
 
 

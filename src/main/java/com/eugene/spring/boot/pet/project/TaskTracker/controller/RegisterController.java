@@ -4,7 +4,7 @@ import com.eugene.spring.boot.pet.project.TaskTracker.entity.Role;
 import com.eugene.spring.boot.pet.project.TaskTracker.entity.User;
 import com.eugene.spring.boot.pet.project.TaskTracker.repository.RoleRepo;
 import com.eugene.spring.boot.pet.project.TaskTracker.repository.UserRepo;
-import com.eugene.spring.boot.pet.project.TaskTracker.service.UserService;
+import com.eugene.spring.boot.pet.project.TaskTracker.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ import java.util.List;
 public class RegisterController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     private final UserRepo userRepo;
 
@@ -51,7 +51,7 @@ public class RegisterController {
 //        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 //        String encodedPassword = passwordEncoder.encode(user.getPassword());
 //        user.setPassword(encodedPassword);
-        userService.register(user, getSiteURL(request));
+        userServiceImpl.register(user, getSiteURL(request));
         return "register/register_success";
     }
 
@@ -63,7 +63,7 @@ public class RegisterController {
 
     @GetMapping("/verify")
     public String verifyUser(@Param("code") String code) {
-        if (userService.verify(code)) {
+        if (userServiceImpl.verify(code)) {
             return "register/verify_success";
         } else {
             return "register/verify_fail";

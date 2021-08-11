@@ -1,21 +1,18 @@
 package com.eugene.spring.boot.pet.project.TaskTracker.service;
 
 import com.eugene.spring.boot.pet.project.TaskTracker.entity.Project;
-import com.eugene.spring.boot.pet.project.TaskTracker.repository.ProjectRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class ProjectService {
+public interface ProjectService {
 
-    @Autowired
-    private ProjectRepo projectRepo;
+    void creatProject(Project project);
 
-    public List<Project> getAllProjects(){
-        return projectRepo.findAll();
-    }
+    Project readProjectById(Long id);
 
+    void updateProject(Long id, Project newProject);
 
+    void delete(Long id);
+
+    List<Project> getAllProjects();
 }

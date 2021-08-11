@@ -1,68 +1,49 @@
-package com.eugene.spring.boot.pet.project.TaskTracker.entity;
+package com.eugene.spring.boot.pet.project.TaskTracker.dto;
 
-
-import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDto {
+
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String surname;
 
-    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
     private String gender;
 
-    @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
     private boolean enabled;
 
     private Date birthday;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
+    private Set<RoleDto> roles = new HashSet<>();
+
+    private Set<ProjectDto> creatingProjects = new HashSet<>();
+
+    private Set<ProjectDto> listOfDeveloperProjects = new HashSet<>();
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "creator")
-    private Set<Project> creatingProjects = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "developers")
-    private Set<Project> listOfDeveloperProjects = new HashSet<>();
-
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "implementer")
-//    private Set<Task> taskList = new HashSet<>();
-
-    public User() {
+    public UserDto() {
     }
 
-    public User(String name, String surname, String email, String password, String gender) {
+    public UserDto(String name, String surname, String email, String password, String gender, String verificationCode, boolean enabled, Date birthday) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.gender = gender;
+        this.verificationCode = verificationCode;
+        this.enabled = enabled;
+        this.birthday = birthday;
     }
 
     public Long getId() {
@@ -137,31 +118,27 @@ public class User {
         this.birthday = birthday;
     }
 
-    public Set<Role> getRoles() {
+    public Set<RoleDto> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<RoleDto> roles) {
         this.roles = roles;
     }
 
-    public Set<Project> getCreatingProjects() {
+    public Set<ProjectDto> getCreatingProjects() {
         return creatingProjects;
     }
 
-    public void setCreatingProjects(Set<Project> creatingProjects) {
+    public void setCreatingProjects(Set<ProjectDto> creatingProjects) {
         this.creatingProjects = creatingProjects;
     }
 
-    public String getFullName() {
-        return this.name + ", " + this.surname;
-    }
-
-    public Set<Project> getListOfDeveloperProjects() {
+    public Set<ProjectDto> getListOfDeveloperProjects() {
         return listOfDeveloperProjects;
     }
 
-    public void setListOfDeveloperProjects(Set<Project> listOfDeveloperProjects) {
+    public void setListOfDeveloperProjects(Set<ProjectDto> listOfDeveloperProjects) {
         this.listOfDeveloperProjects = listOfDeveloperProjects;
     }
 
@@ -169,8 +146,8 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+        UserDto userDto = (UserDto) o;
+        return Objects.equals(id, userDto.id);
     }
 
     @Override

@@ -49,7 +49,8 @@ public class TaskController {
         return "task/edit_task_status_page";
     }
 
-    @PostMapping("/update/{taskId}")
+//    @PostMapping("/update/{taskId}")
+    @PatchMapping("/update/{taskId}")
     public String updateTaskStatus(@ModelAttribute("task") Task updateTask, @PathVariable Long taskId) {
         Task task = taskRepo.getById(taskId);
         Project project = task.getProject();

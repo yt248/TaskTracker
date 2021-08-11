@@ -13,8 +13,7 @@
 <body>
 <div align="center">
 
-    <h3> Project name</h3>
-    <br>
+    <h2> Project name</h2>
     <h2><span th:text="${projectInfo.name}"/></h2>
 
     <br>
@@ -31,11 +30,58 @@
             <tr>
                 <td align="center"><b>Full Name</b></td>
             </tr>
-            <tr th:each="user : ${projectInfo.getUsers()}">
+            <tr th:each="user : ${projectInfo.getDevelopers()}">
                 <td align="center" th:text="${user.fullName}"></td>
             </tr>
         </table>
     </div>
+
+    <br>
+    <div>
+        <form th:action="@{'/project/-/'+${projectInfo.id}}" method="get">
+            <button type="submit">Add Developers to Project</button>
+        </form>
+    </div>
+
+
+    <div align="center">
+        <h3>Task Project</h3>
+        <table style="width:15%">
+            <tr>
+                <td align="center"><b>Name</b></td>
+                <!--                <td align="center"><b>Description</b></td>-->
+                <td align="center"><b>TaskStatus</b></td>
+                <td align="center"><b>Details task information</b></td>
+                <td align="center"><b>Edit TaskStatus</b></td>
+            </tr>
+            <tr th:each="task : ${projectInfo.getTaskList()}">
+                <td align="center" th:text="${task.name}"></td>
+                <!--                <td align="center" th:text="${task.description}"></td>-->
+                <td align="center" th:text="${task.taskStatus}"></td>
+                <td>
+                    <form th:action="@{'/task/showDetails/'+ ${task.id}}" method="get">
+                        <button type="submit">Show task details</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{'/task/editTaskStatus/'+ ${task.id}}" method="get">
+                        <button type="submit">Edit task status</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <br>
+    <br>
+    <div>
+        <form th:action="@{'/task/createTaskToProject/'+${projectInfo.id}}" method="get">
+            <button type="submit">Create new Task</button>
+        </form>
+    </div>
+
+    <br>
+    <br>
 
 
 </div>

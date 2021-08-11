@@ -2,17 +2,16 @@ package com.eugene.spring.boot.pet.project.TaskTracker.entity;
 
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "projects")
-public class Project {
+public class    Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     private String name;
 
@@ -28,7 +27,11 @@ public class Project {
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private Set<User> users = new HashSet<>();
+    private Set<User> developers = new HashSet<>();
+
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "project", cascade = {CascadeType.ALL})
+    private Set<Task> taskList = new HashSet<>();
 
 
     public Project() {
@@ -39,7 +42,6 @@ public class Project {
         this.description = description;
         this.creator = creator;
     }
-
 
     public Long getId() {
         return id;
@@ -73,20 +75,31 @@ public class Project {
         this.creator = creator;
     }
 
-    public Set<User> getUsers() {
-        return users;
+
+    public Set<Task> getTaskList() {
+        return taskList;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setTaskList(Set<Task> taskList) {
+        this.taskList = taskList;
     }
+
+    public Set<User> getDevelopers() {
+        return developers;
+    }
+
+    public void setDevelopers(Set<User> developers) {
+        this.developers = developers;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Project project = (Project) o;
-        return id.equals(project.id);
+        return Objects.equals(id, project.id);
     }
 
     @Override
